@@ -11,7 +11,6 @@ body {
     height: 100vh;
     position: relative;
     overflow: hidden;
-    text-align: center; /* Centers text */
 }
 
 /* Light Mode S-Shaped Stripes */
@@ -36,29 +35,33 @@ body::before {
     background: repeating-linear-gradient(45deg, transparent, transparent 30px, rgba(255, 50, 50, 0.5) 30px, rgba(255, 50, 50, 0.5) 60px);
 }
 
-/* Container */
+/* Centered Container */
 .container {
     background: white;
     padding: 40px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 170%; /* Increased width */
-    max-width: 2000px;
+    width: 70%; /* Adjusted to fit within screen */
+    max-width: 1200px; /* Prevents excessive stretching */
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%); /* Perfect centering */
 }
 
 /* Title */
 h1 {
-    text-align: 85%;
+    text-align: center;
     font-size: 32px;
 }
 
 /* Input group - Centered */
 .input-group {
     display: flex;
-    justify-content: center; /* Centers the group */
+    justify-content: center;
     align-items: center;
     gap: 10px;
     width: 100%;
@@ -70,7 +73,8 @@ h1 {
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 16px;
-    text-align: center; /* Centers text inside input */
+    text-align: center;
+    width: 60%; /* Adjust width */
 }
 
 /* Dropdown */
