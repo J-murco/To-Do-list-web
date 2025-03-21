@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
         localStorage.setItem("darkMode", body.classList.contains("dark-mode") ? "enabled" : "disabled");
     });
 
-    // Add new task
+    // Add new task when button is clicked
     addTaskBtn.addEventListener("click", function () {
         const taskText = taskInput.value.trim();
         const urgency = urgencySelect.value;
@@ -41,9 +41,6 @@ document.addEventListener("DOMContentLoaded", function () {
         const completeBtn = document.createElement("button");
         completeBtn.innerHTML = "✔";
         completeBtn.classList.add("complete-btn");
-        completeBtn.addEventListener("click", function () {
-            span.classList.toggle("completed");
-        });
         li.appendChild(completeBtn);
 
         // ❌ Delete button
@@ -51,14 +48,22 @@ document.addEventListener("DOMContentLoaded", function () {
         deleteBtn.innerHTML = "✖";
         deleteBtn.classList.add("delete-btn");
         deleteBtn.style.color = "black"; // Ensure black cross
-        deleteBtn.addEventListener("click", function () {
-            li.remove();
-        });
         li.appendChild(deleteBtn);
 
         taskList.appendChild(li);
         sortTasks();
     }
+
+    // Event Delegation: Make sure all buttons work, even for new tasks
+    taskList.addEventListener("click", function (e) {
+        if (e.target.classList.contains("complete-btn")) {
+            e.target.parentElement.querySelector("span").classList.toggle("completed");
+        }
+
+        if (e.target.classList.contains("delete-btn")) {
+            e.target.parentElement.remove();
+        }
+    });
 
     // Sort tasks by urgency (High → Medium → Low)
     function sortTasks() {
