@@ -1,29 +1,85 @@
-/* Import Google Font */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
-
 /* General Styles */
 body {
     font-family: 'Poppins', sans-serif;
-    background: linear-gradient(120deg, #89f7fe, #66a6ff);
-    background-size: 200% 200%;
+    background: linear-gradient(135deg, #4A90E2, #145DA0);
+    color: #fff;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     margin: 0;
-    transition: background 0.5s ease-in-out;
-    animation: gradientAnimation 10s infinite alternate;
     position: relative;
     overflow: hidden;
 }
 
-/* Background animation */
-@keyframes gradientAnimation {
-    0% { background-position: 0% 50%; }
-    100% { background-position: 100% 50%; }
+/* Container */
+.container {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    width: auto;
 }
 
-/* Add curvy red stripes */
+/* Task List */
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+/* Task Item */
+li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 5px;
+    margin-bottom: 8px;
+}
+
+/* Completed Task */
+.completed {
+    text-decoration: line-through;
+    color: gray;
+}
+
+/* Buttons */
+button {
+    cursor: pointer;
+    border: none;
+    padding: 8px 12px;
+    margin-left: 5px;
+    border-radius: 5px;
+}
+
+/* ✅ Tick Button */
+.complete-btn {
+    background: #2ecc71;
+    color: white;
+}
+
+/* ❌ Delete Button (Now with BLACK cross) */
+.delete-btn {
+    background: #e74c3c;
+    color: black;
+}
+
+/* Dark Mode */
+.dark-mode {
+    background: linear-gradient(135deg, #222, #333);
+    color: #fff;
+}
+
+.dark-mode .container {
+    background: rgba(0, 0, 0, 0.8);
+}
+
+.dark-mode li {
+    background: rgba(50, 50, 50, 0.8);
+}
+
+/* Restore Red Curvy Stripes */
 body::before {
     content: "";
     position: absolute;
@@ -31,58 +87,15 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background: url('data:image/svg+xml,\
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">\
-    <path d=\"M0,50 Q25,75 50,50 T100,50\" fill=\"none\" stroke=\"rgba(255, 0, 0, 0.2)\" stroke-width=\"5\" />\
-    <path d=\"M0,70 Q25,90 50,70 T100,70\" fill=\"none\" stroke=\"rgba(255, 0, 0, 0.2)\" stroke-width=\"5\" />\
-    <path d=\"M0,30 Q25,50 50,30 T100,30\" fill=\"none\" stroke=\"rgba(255, 0, 0, 0.2)\" stroke-width=\"5\" />\
-    </svg>') repeat;
-    background-size: cover;
-    opacity: 0.5;
+    background: url('your-stripe-image.png'); /* Use an image for real curvy stripes */
+    opacity: 0.3;
     z-index: -1;
 }
 
-/* Dark Mode */
-.dark-mode {
-    background: radial-gradient(circle, #1c1c1c, #0f0f0f);
-}
-
-/* Invert stripes in dark mode */
+/* Keep Stripes Visible in Dark Mode */
 .dark-mode::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: url('data:image/svg+xml,\
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">\
-    <path d=\"M0,50 Q25,75 50,50 T100,50\" fill=\"none\" stroke=\"rgba(255, 100, 100, 0.4)\" stroke-width=\"5\" />\
-    <path d=\"M0,70 Q25,90 50,70 T100,70\" fill=\"none\" stroke=\"rgba(255, 100, 100, 0.4)\" stroke-width=\"5\" />\
-    <path d=\"M0,30 Q25,50 50,30 T100,30\" fill=\"none\" stroke=\"rgba(255, 100, 100, 0.4)\" stroke-width=\"5\" />\
-    </svg>') repeat;
-    background-size: cover;
-    opacity: 0.7; /* Make stripes more visible */
-    z-index: -1;
+    opacity: 0.5;
 }
-
-/* Container */
-.container {
-    background: rgba(255, 255, 255, 0.9);
-    padding: 25px;
-    border-radius: 15px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-    width: auto; /* Auto width */
-    min-width: 350px;
-    max-width: 500px;
-    text-align: center;
-    transition: 0.3s ease-in-out;
-    border: 3px solid transparent;
-    animation: glowingBorder 3s infinite alternate;
-}
-
-/* Responsive Design */
-@media (max-width: 400px) {
     .container {
         width: 90%;
     }
