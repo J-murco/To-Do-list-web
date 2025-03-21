@@ -41,7 +41,7 @@ body::before {
     padding: 40px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 70%; /* Adjusted to fit within screen */
+    width: 170%; /* Adjusted to fit within screen */
     max-width: 1200px; /* Prevents excessive stretching */
     display: flex;
     flex-direction: column;
