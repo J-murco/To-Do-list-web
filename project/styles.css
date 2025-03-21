@@ -11,6 +11,7 @@ body {
     height: 100vh;
     position: relative;
     overflow: hidden;
+    text-align: center; /* Centers text */
 }
 
 /* Light Mode S-Shaped Stripes */
@@ -41,20 +42,27 @@ body::before {
     padding: 40px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 170%; /* Made it significantly wider */
-    max-width: 1200px; /* Increased the maximum width */
+    width: 170%; /* Increased width */
+    max-width: 2000px; /* Adjusted max width */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
+
 h1 {
     text-align: center;
     font-size: 32px;
 }
 
+/* Input group */
 .input-group {
     display: flex;
     gap: 10px;
     margin-bottom: 10px;
+    justify-content: center; /* Centers inputs */
 }
 
+/* Buttons */
 button {
     padding: 10px;
     border: none;
@@ -73,6 +81,7 @@ li {
     align-items: center;
     padding: 10px;
     border-bottom: 1px solid #ddd;
+    width: 100%;
 }
 
 .completed {
@@ -80,8 +89,9 @@ li {
     color: gray;
 }
 
+/* Prevent buttons from crossing out */
 .completed .complete-btn, .completed .delete-btn {
-    text-decoration: none; /* Prevents the buttons from being crossed out */
+    text-decoration: none;
 }
 
 /* Tick and Cross Buttons */
@@ -98,5 +108,5 @@ li {
 }
 
 .delete-btn {
-    color: black; /* X is now black */
+    color: black; /* X is black */
 }
