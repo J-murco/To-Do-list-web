@@ -1,16 +1,17 @@
 /* General Styles */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Poppins', sans-serif;
+    background-color: #f4f4f4;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #f4f4f4;
-    transition: background 0.3s, color 0.3s;
+    margin: 0;
+    transition: background-color 0.3s ease-in-out;
 }
 
 /* Dark Mode */
-body.dark-mode {
+.dark-mode {
     background-color: #121212;
     color: white;
 }
@@ -18,55 +19,100 @@ body.dark-mode {
 /* Container */
 .container {
     background: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
     width: 350px;
     text-align: center;
+    transition: background-color 0.3s ease-in-out;
 }
 
-/* Dark Mode for Container */
-body.dark-mode .container {
+.dark-mode .container {
     background: #1e1e1e;
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+    color: white;
 }
 
-/* Input Group */
+/* Title */
+h1 {
+    font-size: 26px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #333;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    display: inline-block;
+    padding-bottom: 5px;
+}
+
+h1::after {
+    content: '';
+    width: 50%;
+    height: 3px;
+    background: #3498db;
+    position: absolute;
+    bottom: 0;
+    left: 25%;
+    border-radius: 5px;
+}
+
+/* Dark Mode Title */
+.dark-mode h1 {
+    color: #f8f8f8;
+}
+
+.dark-mode h1::after {
+    background: #ffcc00;
+}
+
+/* Input & Urgency */
 .input-group {
     display: flex;
     gap: 10px;
     margin-bottom: 15px;
 }
 
-/* Inputs */
-input[type="text"], input[type="color"] {
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+input, select, button {
+    font-size: 16px;
+    padding: 10px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    transition: 0.3s ease-in-out;
 }
 
+input {
+    flex: 1;
+    outline: none;
+}
+
+input:focus {
+    border-color: #3498db;
+}
+
+/* Urgency Dropdown */
+select {
+    background: #fff;
+    cursor: pointer;
+}
+
+.dark-mode select {
+    background: #2b2b2b;
+    color: white;
+    border-color: #555;
+}
+
+/* Buttons */
 button {
-    padding: 8px 12px;
+    background: #3498db;
+    color: white;
     border: none;
     cursor: pointer;
-    border-radius: 5px;
-    background: #007bff;
-    color: white;
-    transition: 0.3s;
+    font-weight: bold;
+    text-transform: uppercase;
 }
 
 button:hover {
-    background: #0056b3;
-}
-
-/* Dark Mode Button */
-#darkModeToggle {
-    margin-top: 10px;
-    background: #222;
-}
-
-#darkModeToggle:hover {
-    background: #444;
+    background: #2980b9;
 }
 
 /* Task List */
@@ -77,22 +123,67 @@ ul {
 
 li {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding: 8px;
-    border-bottom: 1px solid #ddd;
+    justify-content: space-between;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    background: #f8f8f8;
+    transition: background 0.3s ease-in-out;
 }
 
-/* Completed Tasks */
-.completed {
+li span {
+    flex: 1;
+    font-size: 16px;
+}
+
+li.completed {
     text-decoration: line-through;
-    color: gray !important;
+    color: gray;
 }
 
-/* Dark Mode for Tasks */
-body.dark-mode li {
-    border-bottom: 1px solid #555;
+/* Urgency Color Highlight */
+li.high {
+    border-left: 5px solid #e74c3c;
 }
+
+li.medium {
+    border-left: 5px solid #f1c40f;
+}
+
+li.low {
+    border-left: 5px solid #2ecc71;
+}
+
+/* Dark Mode Tasks */
+.dark-mode li {
+    background: #2b2b2b;
+}
+
+.dark-mode li span {
+    color: white;
+}
+
+.dark-mode .completed {
+    color: #888;
+}
+
+/* Dark Mode Toggle */
+#darkModeToggle {
+    margin-top: 15px;
+    background: #555;
+    color: white;
+}
+
+#darkModeToggle:hover {
+    background: #444;
+}
+
+/* Responsive Design */
+@media (max-width: 400px) {
+    .container {
+        width: 90%;
+    }
 }
 
 .dark-mode button:hover {
