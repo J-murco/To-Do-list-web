@@ -19,22 +19,28 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Add new task when button is clicked
     addTaskBtn.addEventListener("click", function () {
+        addTask();
+    });
+
+    // Add task on pressing "Enter" key
+    taskInput.addEventListener("keypress", function (e) {
+        if (e.key === "Enter") {
+            addTask();
+        }
+    });
+
+    function addTask() {
         const taskText = taskInput.value.trim();
         const urgency = urgencySelect.value;
 
         if (taskText === "") return;
 
-        addTask(taskText, urgency);
-        taskInput.value = "";
-    });
-
-    function addTask(text, urgency) {
         const li = document.createElement("li");
         li.setAttribute("data-urgency", urgency);
 
         // Task description
         const span = document.createElement("span");
-        span.textContent = text;
+        span.textContent = taskText;
         li.appendChild(span);
 
         // ✅ Complete button
@@ -51,6 +57,7 @@ document.addEventListener("DOMContentLoaded", function () {
         li.appendChild(deleteBtn);
 
         taskList.appendChild(li);
+        taskInput.value = ""; // Clear input field
         sortTasks();
     }
 
