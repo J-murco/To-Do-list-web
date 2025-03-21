@@ -43,38 +43,65 @@ body::before {
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     width: 170%; /* Increased width */
-    max-width: 2000px; /* Adjusted max width */
+    max-width: 2000px;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
+/* Title */
 h1 {
     text-align: center;
     font-size: 32px;
 }
 
-/* Input group */
+/* Input group - Centered */
 .input-group {
     display: flex;
+    justify-content: center; /* Centers the group */
+    align-items: center;
     gap: 10px;
-    margin-bottom: 10px;
-    justify-content: center; /* Centers inputs */
+    width: 100%;
 }
 
-/* Buttons */
+/* Input field */
+#taskInput {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    text-align: center; /* Centers text inside input */
+}
+
+/* Dropdown */
+#urgencySelect {
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 16px;
+    text-align: center;
+}
+
+/* Centering all buttons */
 button {
     padding: 10px;
     border: none;
     cursor: pointer;
     border-radius: 5px;
+    font-size: 16px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
+/* Task List */
 #taskList {
     list-style: none;
     padding: 0;
+    width: 100%;
 }
 
+/* List Items */
 li {
     display: flex;
     justify-content: space-between;
@@ -84,6 +111,7 @@ li {
     width: 100%;
 }
 
+/* Completed Task Style */
 .completed {
     text-decoration: line-through;
     color: gray;
@@ -109,4 +137,11 @@ li {
 
 .delete-btn {
     color: black; /* X is black */
+}
+
+/* Dark Mode Button */
+#darkModeToggle {
+    margin-top: 20px;
+    background: black;
+    color: white;
 }
