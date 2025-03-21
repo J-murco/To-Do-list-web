@@ -1,0 +1,71 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f4f4f4;
+    transition: background 0.3s, color 0.3s;
+}
+
+.container {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    text-align: center;
+}
+
+input {
+    width: 80%;
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
+button {
+    padding: 5px 10px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+}
+
+.completed {
+    text-decoration: line-through;
+    color: gray;
+}
+
+/* Dark Mode Styles */
+.dark-mode {
+    background-color: #222;
+    color: white;
+}
+
+.dark-mode .container {
+    background: #333;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+.dark-mode input,
+.dark-mode button {
+    background-color: #444;
+    color: white;
+    border: 1px solid white;
+}
+
+.dark-mode button:hover {
+    background-color: #555;
+}
