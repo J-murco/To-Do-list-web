@@ -1,3 +1,4 @@
+/* General Styles */
 body {
     font-family: Arial, sans-serif;
     display: flex;
@@ -8,29 +9,67 @@ body {
     transition: background 0.3s, color 0.3s;
 }
 
+/* Dark Mode */
+body.dark-mode {
+    background-color: #121212;
+    color: white;
+}
+
+/* Container */
 .container {
     background: white;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 300px;
+    width: 350px;
     text-align: center;
 }
 
-input {
-    width: 80%;
-    padding: 5px;
-    margin-bottom: 10px;
+/* Dark Mode for Container */
+body.dark-mode .container {
+    background: #1e1e1e;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+}
+
+/* Input Group */
+.input-group {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+/* Inputs */
+input[type="text"], input[type="color"] {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
 }
 
 button {
-    padding: 5px 10px;
-    background-color: #28a745;
-    color: white;
+    padding: 8px 12px;
     border: none;
     cursor: pointer;
+    border-radius: 5px;
+    background: #007bff;
+    color: white;
+    transition: 0.3s;
 }
 
+button:hover {
+    background: #0056b3;
+}
+
+/* Dark Mode Button */
+#darkModeToggle {
+    margin-top: 10px;
+    background: #222;
+}
+
+#darkModeToggle:hover {
+    background: #444;
+}
+
+/* Task List */
 ul {
     list-style: none;
     padding: 0;
@@ -39,31 +78,21 @@ ul {
 li {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding: 8px;
     border-bottom: 1px solid #ddd;
 }
 
+/* Completed Tasks */
 .completed {
     text-decoration: line-through;
-    color: gray;
+    color: gray !important;
 }
 
-/* Dark Mode Styles */
-.dark-mode {
-    background-color: #222;
-    color: white;
+/* Dark Mode for Tasks */
+body.dark-mode li {
+    border-bottom: 1px solid #555;
 }
-
-.dark-mode .container {
-    background: #333;
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
-}
-
-.dark-mode input,
-.dark-mode button {
-    background-color: #444;
-    color: white;
-    border: 1px solid white;
 }
 
 .dark-mode button:hover {
