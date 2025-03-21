@@ -1,42 +1,68 @@
+/* Import Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
 /* General Styles */
 body {
     font-family: 'Poppins', sans-serif;
-    background-color: #f4f4f4;
+    background: linear-gradient(120deg, #89f7fe, #66a6ff);
+    background-size: 200% 200%;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     margin: 0;
-    transition: background-color 0.3s ease-in-out;
+    transition: background 0.5s ease-in-out;
+    animation: gradientAnimation 10s infinite alternate;
+}
+
+/* Background animation */
+@keyframes gradientAnimation {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 100% 50%; }
 }
 
 /* Dark Mode */
 .dark-mode {
-    background-color: #121212;
+    background: radial-gradient(circle, #1c1c1c, #0f0f0f);
     color: white;
 }
 
 /* Container */
 .container {
-    background: white;
+    background: rgba(255, 255, 255, 0.9);
     padding: 25px;
     border-radius: 15px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
     width: auto; /* Auto width */
     min-width: 350px;
     max-width: 500px;
     text-align: center;
-    transition: background-color 0.3s ease-in-out;
+    transition: 0.3s ease-in-out;
+    border: 3px solid transparent;
+    animation: glowingBorder 3s infinite alternate;
 }
 
+/* Glowing border animation */
+@keyframes glowingBorder {
+    0% { border-color: #66a6ff; }
+    100% { border-color: #89f7fe; }
+}
+
+/* Dark Mode Container */
 .dark-mode .container {
-    background: #1e1e1e;
-    color: white;
+    background: rgba(30, 30, 30, 0.9);
+    border-color: #ffcc00;
+    animation: glowingBorderDark 3s infinite alternate;
+}
+
+@keyframes glowingBorderDark {
+    0% { border-color: #ffcc00; }
+    100% { border-color: #ff6600; }
 }
 
 /* Title */
 h1 {
-    font-size: 26px;
+    font-size: 28px;
     font-weight: bold;
     margin-bottom: 15px;
     color: #333;
@@ -60,11 +86,11 @@ h1::after {
 
 /* Dark Mode Title */
 .dark-mode h1 {
-    color: #f8f8f8;
+    color: #ffcc00;
 }
 
 .dark-mode h1::after {
-    background: #ffcc00;
+    background: #ff6600;
 }
 
 /* Input & Urgency */
@@ -111,6 +137,7 @@ button {
     cursor: pointer;
     font-weight: bold;
     text-transform: uppercase;
+    transition: 0.3s ease-in-out;
 }
 
 button:hover {
