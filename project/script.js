@@ -18,11 +18,9 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // Add new task when button is clicked
-    addTaskBtn.addEventListener("click", function () {
-        addTask();
-    });
+    addTaskBtn.addEventListener("click", addTask);
 
-    // Add task on pressing "Enter" key
+    // Add task when pressing "Enter"
     taskInput.addEventListener("keypress", function (e) {
         if (e.key === "Enter") {
             addTask();
@@ -33,12 +31,13 @@ document.addEventListener("DOMContentLoaded", function () {
         const taskText = taskInput.value.trim();
         const urgency = urgencySelect.value;
 
-        if (taskText === "") return;
+        if (taskText === "") return; // Prevent empty tasks
 
         const li = document.createElement("li");
+        li.classList.add("task-item");
         li.setAttribute("data-urgency", urgency);
 
-        // Task description
+        // Task text
         const span = document.createElement("span");
         span.textContent = taskText;
         li.appendChild(span);
@@ -57,11 +56,11 @@ document.addEventListener("DOMContentLoaded", function () {
         li.appendChild(deleteBtn);
 
         taskList.appendChild(li);
-        taskInput.value = ""; // Clear input field
+        taskInput.value = ""; // Clear input
         sortTasks();
     }
 
-    // Event Delegation: Make sure all buttons work, even for new tasks
+    // Handle Complete & Delete button clicks
     taskList.addEventListener("click", function (e) {
         if (e.target.classList.contains("complete-btn")) {
             e.target.parentElement.querySelector("span").classList.toggle("completed");
@@ -75,8 +74,9 @@ document.addEventListener("DOMContentLoaded", function () {
     // Sort tasks by urgency (High → Medium → Low)
     function sortTasks() {
         const tasks = Array.from(taskList.children);
+        const priority = { "high": 1, "medium": 2, "low": 3 };
+
         tasks.sort((a, b) => {
-            const priority = { "high": 1, "medium": 2, "low": 3 };
             return priority[a.getAttribute("data-urgency")] - priority[b.getAttribute("data-urgency")];
         });
 
