@@ -1,47 +1,48 @@
 document.addEventListener("DOMContentLoaded", function () {
     const taskInput = document.getElementById("taskInput");
-    const colorPicker = document.getElementById("colorPicker"); // 🎨 Color Picker
+    const urgencySelect = document.getElementById("urgencySelect");
     const addTaskBtn = document.getElementById("addTaskBtn");
     const taskList = document.getElementById("taskList");
-    const darkModeToggle = document.getElementById("darkModeToggle"); // 🌙 Dark Mode Toggle
+    const darkModeToggle = document.getElementById("darkModeToggle");
 
-    // Load tasks and dark mode preference from local storage
     let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
     let isDarkMode = localStorage.getItem("darkMode") === "enabled";
-    
+
     applyDarkMode(isDarkMode);
     renderTasks();
 
-    // Add a new task
     addTaskBtn.addEventListener("click", function () {
         const taskText = taskInput.value.trim();
-        const taskColor = colorPicker.value; // Get chosen color
+        const urgency = urgencySelect.value;
 
         if (taskText === "") return;
 
         const task = {
             text: taskText,
-            color: taskColor, // Store the selected color
-            date: new Date().toLocaleString(),
+            urgency: urgency,
+            date: new Date().toLocaleString(), // Adds the date
             completed: false,
         };
 
         tasks.push(task);
-        localStorage.setItem("tasks", JSON.stringify(tasks));
+        saveAndRender();
         taskInput.value = "";
-        renderTasks();
     });
 
-    // Render tasks
     function renderTasks() {
         taskList.innerHTML = "";
-        tasks.forEach((task, index) => {
-            console.log("Task Data:", task); // Debugging log
 
+        // Sort tasks by urgency (High > Medium > Low)
+        tasks.sort((a, b) => {
+            const urgencyLevels = { high: 1, medium: 2, low: 3 };
+            return urgencyLevels[a.urgency] - urgencyLevels[b.urgency];
+        });
+
+        tasks.forEach((task, index) => {
             const li = document.createElement("li");
             li.innerHTML = `
-                <span style="color: ${task.color}; ${task.completed ? 'text-decoration: line-through;' : ''}">
-                    ${task.text}
+                <span class="${task.completed ? 'completed' : ''}">
+                    ${task.text} - <strong>${getUrgencyLabel(task.urgency)}</strong>
                 </span>
                 <small style="margin-left: 10px; color: gray;">${task.date}</small>
                 <button onclick="toggleTask(${index})">✔</button>
@@ -51,21 +52,22 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // Toggle task completion
+    function getUrgencyLabel(urgency) {
+        if (urgency === "high") return "🔥 High";
+        if (urgency === "medium") return "⚠ Medium";
+        return "✅ Low";
+    }
+
     window.toggleTask = function (index) {
         tasks[index].completed = !tasks[index].completed;
-        localStorage.setItem("tasks", JSON.stringify(tasks));
-        renderTasks();
+        saveAndRender();
     };
 
-    // Delete task
     window.deleteTask = function (index) {
         tasks.splice(index, 1);
-        localStorage.setItem("tasks", JSON.stringify(tasks));
-        renderTasks();
+        saveAndRender();
     };
 
-    // 🌙 Toggle Dark Mode
     darkModeToggle.addEventListener("click", function () {
         isDarkMode = !isDarkMode;
         applyDarkMode(isDarkMode);
@@ -74,5 +76,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function applyDarkMode(enable) {
         document.body.classList.toggle("dark-mode", enable);
+    }
+
+    function saveAndRender() {
+        localStorage.setItem("tasks", JSON.stringify(tasks));
+        renderTasks();
     }
 });
