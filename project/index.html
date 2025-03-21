@@ -1,22 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
-
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>To-Do List</title>
-        <link rel="stylesheet" href="styles.css">
-    </head>
-
-    <body>
-        <div class="container">
-            <h2>To-Do List</h2>
-            <button id="darkModeToggle">🌙 Toggle Dark Mode</button>
-            <input type="text" id="taskInput" placeholder="Add a new task">
-            <button onclick="addTask()">Add</button>
-            <ul id="taskList"></ul>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>To-Do List</h1>
+        <div class="input-group">
+            <input type="text" id="taskInput" placeholder="Enter your task">
+            <input type="color" id="colorPicker" value="#000000"> <!-- 🎨 Color Picker -->
+            <button id="addTaskBtn">Add Task</button>
         </div>
-        <script src="script.js"></script>
-    </body>
 
+        <ul id="taskList"></ul>
+
+        <button id="darkModeToggle">Toggle Dark Mode</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
 </html>
