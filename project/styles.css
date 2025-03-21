@@ -42,7 +42,7 @@ body::before {
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     width: auto;
-    max-width: 600px; /* Increased size */
+    max-width: 800px; /* Increased width */
 }
 
 h1 {
