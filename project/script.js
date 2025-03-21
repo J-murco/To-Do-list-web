@@ -5,47 +5,53 @@ document.addEventListener("DOMContentLoaded", () => {
     const darkModeToggle = document.getElementById("darkModeToggle");
     const urgencySelect = document.getElementById("urgencySelect");
 
-    // Load dark mode preference
-    if (localStorage.getItem("darkMode") === "enabled") {
-        document.body.classList.add("dark-mode");
-    }
+    addTaskBtn.addEventListener("click", addTask);
 
-    // Toggle dark mode
-    darkModeToggle.addEventListener("click", () => {
-        document.body.classList.toggle("dark-mode");
-        localStorage.setItem("darkMode", document.body.classList.contains("dark-mode") ? "enabled" : "disabled");
-    });
-
-    // Add task
-    addTaskBtn.addEventListener("click", () => {
+    function addTask() {
         const taskText = taskInput.value.trim();
-        const urgency = urgencySelect.value;
-
         if (taskText === "") return;
 
-        const li = document.createElement("li");
-        li.innerHTML = `
-            <span>${taskText} (${urgency})</span>
-            <div>
-                <button class="complete-btn">✅</button>
-                <button class="delete-btn">❌</button>
-            </div>
+        const urgency = urgencySelect.value;
+        const listItem = document.createElement("li");
+        listItem.classList.add(urgency);
+
+        listItem.innerHTML = `
+            <span class="task-text">${taskText}</span>
+            <span class="task-urgency">${urgency.toUpperCase()}</span>
+            <button class="tick-btn">✅</button>
+            <button class="delete-btn">❌</button>
         `;
 
-        // Set urgency color
-        if (urgency === "high") li.style.color = "red";
-        else if (urgency === "medium") li.style.color = "orange";
-        else li.style.color = "green";
-
-        taskList.appendChild(li);
-        taskInput.value = "";
-
-        // Mark task as completed
-        li.querySelector(".complete-btn").addEventListener("click", () => {
-            li.classList.toggle("completed");
+        listItem.querySelector(".tick-btn").addEventListener("click", () => {
+            listItem.classList.toggle("completed");
         });
 
-        // Delete task
+        listItem.querySelector(".delete-btn").addEventListener("click", () => {
+            taskList.removeChild(listItem);
+        });
+
+        taskList.appendChild(listItem);
+        taskInput.value = "";
+
+        sortTasks(); // Sort by urgency after adding a task
+    }
+
+    function sortTasks() {
+        const tasks = Array.from(taskList.children);
+        tasks.sort((a, b) => {
+            const priority = { high: 1, medium: 2, low: 3 };
+            return priority[a.classList[0]] - priority[b.classList[0]];
+        });
+
+        taskList.innerHTML = "";
+        tasks.forEach(task => taskList.appendChild(task));
+    }
+
+    darkModeToggle.addEventListener("click", () => {
+        document.body.classList.toggle("dark-mode");
+    });
+});
+
         li.querySelector(".delete-btn").addEventListener("click", () => {
             li.remove();
         });
