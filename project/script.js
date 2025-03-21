@@ -1,66 +1,48 @@
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", () => {
     const taskInput = document.getElementById("taskInput");
     const addTaskBtn = document.getElementById("addTaskBtn");
     const taskList = document.getElementById("taskList");
     const darkModeToggle = document.getElementById("darkModeToggle");
-    const urgencySelect = document.getElementById("urgencySelect");
 
-    // Load dark mode preference
-    if (localStorage.getItem("darkMode") === "enabled") {
-        document.body.classList.add("dark-mode");
-    }
-
-    // Dark mode toggle
-    darkModeToggle.addEventListener("click", function () {
-        document.body.classList.toggle("dark-mode");
-        if (document.body.classList.contains("dark-mode")) {
-            localStorage.setItem("darkMode", "enabled");
-        } else {
-            localStorage.setItem("darkMode", "disabled");
-        }
-    });
-
-    // Add new task
-    addTaskBtn.addEventListener("click", function () {
+    addTaskBtn.addEventListener("click", addTask);
+    darkModeToggle.addEventListener("click", toggleDarkMode);
+    
+    function addTask() {
         const taskText = taskInput.value.trim();
-        const urgency = urgencySelect.value;
-        if (taskText !== "") {
-            addTask(taskText, urgency);
-            taskInput.value = "";
-        }
-    });
+        if (taskText === "") return;
 
-    function addTask(taskText, urgency) {
-        const li = document.createElement("li");
-        li.innerHTML = `
-            <span class="task-text">${taskText}</span>
-            <span class="urgency ${urgency}">${urgency.toUpperCase()}</span>
-            <button class="complete-btn">✔</button>
-            <button class="delete-btn">✖</button>
-        `;
-        li.classList.add(urgency);
-        taskList.appendChild(li);
-        sortTasks();
+        const urgencySelect = document.getElementById("urgencySelect");
+        const urgencyLevel = urgencySelect.value;
+
+        const taskItem = document.createElement("li");
+        taskItem.classList.add(urgencyLevel);
+
+        const taskContent = document.createElement("span");
+        taskContent.textContent = taskText;
+
+        const completeBtn = document.createElement("button");
+        completeBtn.innerHTML = "✔";
+        completeBtn.classList.add("complete-btn");
+        completeBtn.addEventListener("click", () => {
+            taskContent.classList.toggle("completed");
+        });
+
+        const deleteBtn = document.createElement("button");
+        deleteBtn.innerHTML = "✖";
+        deleteBtn.classList.add("delete-btn");
+        deleteBtn.addEventListener("click", () => {
+            taskItem.remove();
+        });
+
+        taskItem.appendChild(taskContent);
+        taskItem.appendChild(completeBtn);
+        taskItem.appendChild(deleteBtn);
+        taskList.appendChild(taskItem);
+
+        taskInput.value = "";
     }
 
-    // Mark task as completed
-    taskList.addEventListener("click", function (e) {
-        if (e.target.classList.contains("complete-btn")) {
-            e.target.parentElement.classList.toggle("completed");
-        }
-        if (e.target.classList.contains("delete-btn")) {
-            e.target.parentElement.remove();
-        }
-    });
-
-    // Sort tasks by urgency
-    function sortTasks() {
-        let tasks = Array.from(taskList.children);
-        tasks.sort((a, b) => {
-            const priority = { high: 1, medium: 2, low: 3 };
-            return priority[a.classList[0]] - priority[b.classList[0]];
-        });
-        taskList.innerHTML = "";
-        tasks.forEach(task => taskList.appendChild(task));
+    function toggleDarkMode() {
+        document.body.classList.toggle("dark-mode");
     }
 });
