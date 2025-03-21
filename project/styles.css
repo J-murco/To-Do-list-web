@@ -22,7 +22,9 @@ body {
     padding: 25px;
     border-radius: 15px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-    width: 350px;
+    width: auto; /* Auto width */
+    min-width: 350px;
+    max-width: 500px;
     text-align: center;
     transition: background-color 0.3s ease-in-out;
 }
@@ -132,14 +134,15 @@ li {
     transition: background 0.3s ease-in-out;
 }
 
+/* Task Text */
 li span {
     flex: 1;
     font-size: 16px;
 }
 
-li.completed {
-    text-decoration: line-through;
-    color: gray;
+/* Adjust button spacing */
+li button {
+    margin-left: 15px; /* Adds space between buttons */
 }
 
 /* Urgency Color Highlight */
@@ -184,8 +187,4 @@ li.low {
     .container {
         width: 90%;
     }
-}
-
-.dark-mode button:hover {
-    background-color: #555;
 }
