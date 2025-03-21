@@ -12,7 +12,7 @@ body {
     position: relative;
 }
 
-/* Gradient Stripes for Light Mode */
+/* Old Grey Stripes for Light Mode */
 body::before {
     content: "";
     position: absolute;
@@ -22,10 +22,10 @@ body::before {
     height: 100%;
     background: repeating-linear-gradient(
         -45deg,
-        rgba(128, 128, 128, 0.2),
-        rgba(128, 128, 128, 0.2) 20px,
-        rgba(255, 255, 255, 0.2) 20px,
-        rgba(255, 255, 255, 0.2) 40px
+        rgba(192, 192, 192, 0.3),
+        rgba(192, 192, 192, 0.3) 20px,
+        rgba(255, 255, 255, 0.3) 20px,
+        rgba(255, 255, 255, 0.3) 40px
     );
     z-index: -1;
 }
@@ -39,10 +39,10 @@ body::before {
 .dark-mode::before {
     background: repeating-linear-gradient(
         -45deg,
-        rgba(255, 0, 0, 0.3),
-        rgba(255, 0, 0, 0.3) 20px,
-        rgba(128, 0, 0, 0.3) 20px,
-        rgba(128, 0, 0, 0.3) 40px
+        rgba(255, 100, 100, 0.3),
+        rgba(255, 100, 100, 0.3) 20px,
+        rgba(200, 50, 50, 0.3) 20px,
+        rgba(200, 50, 50, 0.3) 40px
     );
 }
 
@@ -108,4 +108,3 @@ li {
 .delete-btn {
     color: black; /* X is now black */
 }
-
