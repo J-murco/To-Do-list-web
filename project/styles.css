@@ -41,13 +41,13 @@ body::before {
     padding: 40px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: auto;
-    max-width: 800px; /* Increased width */
+    width: 90%; /* Made it significantly wider */
+    max-width: 1200px; /* Wider maximum width */
 }
 
 h1 {
     text-align: center;
-    font-size: 24px;
+    font-size: 32px;
 }
 
 .input-group {
