@@ -1,20 +1,28 @@
 document.addEventListener("DOMContentLoaded", function () {
     const taskInput = document.getElementById("taskInput");
+    const colorPicker = document.getElementById("colorPicker"); // 🎨 Color Picker
     const addTaskBtn = document.getElementById("addTaskBtn");
     const taskList = document.getElementById("taskList");
+    const darkModeToggle = document.getElementById("darkModeToggle"); // 🌙 Dark Mode Toggle
 
-    // Load tasks from local storage
+    // Load tasks and dark mode preference from local storage
     let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+    let isDarkMode = localStorage.getItem("darkMode") === "enabled";
+    
+    applyDarkMode(isDarkMode);
     renderTasks();
 
     // Add a new task
     addTaskBtn.addEventListener("click", function () {
         const taskText = taskInput.value.trim();
+        const taskColor = colorPicker.value; // Get chosen color
+
         if (taskText === "") return;
 
         const task = {
             text: taskText,
-            date: new Date().toLocaleString(), // Get the current date & time
+            color: taskColor, // Store the selected color
+            date: new Date().toLocaleString(),
             completed: false,
         };
 
@@ -28,10 +36,14 @@ document.addEventListener("DOMContentLoaded", function () {
     function renderTasks() {
         taskList.innerHTML = "";
         tasks.forEach((task, index) => {
+            console.log("Task Data:", task); // Debugging log
+
             const li = document.createElement("li");
             li.innerHTML = `
-                <span class="${task.completed ? 'completed' : ''}">${task.text}</span>
-                <small>${task.date}</small> 
+                <span style="color: ${task.color}; ${task.completed ? 'text-decoration: line-through;' : ''}">
+                    ${task.text}
+                </span>
+                <small style="margin-left: 10px; color: gray;">${task.date}</small>
                 <button onclick="toggleTask(${index})">✔</button>
                 <button onclick="deleteTask(${index})">❌</button>
             `;
@@ -52,4 +64,15 @@ document.addEventListener("DOMContentLoaded", function () {
         localStorage.setItem("tasks", JSON.stringify(tasks));
         renderTasks();
     };
+
+    // 🌙 Toggle Dark Mode
+    darkModeToggle.addEventListener("click", function () {
+        isDarkMode = !isDarkMode;
+        applyDarkMode(isDarkMode);
+        localStorage.setItem("darkMode", isDarkMode ? "enabled" : "disabled");
+    });
+
+    function applyDarkMode(enable) {
+        document.body.classList.toggle("dark-mode", enable);
+    }
 });
