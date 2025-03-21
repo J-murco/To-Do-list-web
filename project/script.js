@@ -1,78 +1,55 @@
-document.addEventListener("DOMContentLoaded", () => {
-    loadTasks();
-    loadDarkMode();
+document.addEventListener("DOMContentLoaded", function () {
+    const taskInput = document.getElementById("taskInput");
+    const addTaskBtn = document.getElementById("addTaskBtn");
+    const taskList = document.getElementById("taskList");
 
-    document.getElementById("darkModeToggle").addEventListener("click", toggleDarkMode);
-});
+    // Load tasks from local storage
+    let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+    renderTasks();
 
-function addTask() {
-    let taskInput = document.getElementById("taskInput");
-    let taskText = taskInput.value.trim();
+    // Add a new task
+    addTaskBtn.addEventListener("click", function () {
+        const taskText = taskInput.value.trim();
+        if (taskText === "") return;
 
-    if (taskText === "") return;
+        const task = {
+            text: taskText,
+            date: new Date().toLocaleString(), // Get the current date & time
+            completed: false,
+        };
 
-    let taskList = document.getElementById("taskList");
-    let li = document.createElement("li");
-
-    li.innerHTML = `${taskText} <button onclick="removeTask(this)">❌</button>`;
-    li.onclick = () => {
-        li.classList.toggle("completed");
-        saveTasks();
-    };
-
-    taskList.appendChild(li);
-    saveTasks();
-
-    taskInput.value = "";
-}
-
-function removeTask(button) {
-    let li = button.parentElement;
-    li.remove();
-    saveTasks();
-}
-
-function saveTasks() {
-    let tasks = [];
-    document.querySelectorAll("#taskList li").forEach(li => {
-        tasks.push({
-            text: li.innerText.replace("❌", "").trim(),
-            completed: li.classList.contains("completed")
-        });
+        tasks.push(task);
+        localStorage.setItem("tasks", JSON.stringify(tasks));
+        taskInput.value = "";
+        renderTasks();
     });
-    localStorage.setItem("tasks", JSON.stringify(tasks));
-}
 
-function loadTasks() {
-    let savedTasks = localStorage.getItem("tasks");
-    if (savedTasks) {
-        let taskList = document.getElementById("taskList");
-        JSON.parse(savedTasks).forEach(task => {
-            let li = document.createElement("li");
-            li.innerHTML = `${task.text} <button onclick="removeTask(this)">❌</button>`;
-            if (task.completed) li.classList.add("completed");
-            li.onclick = () => {
-                li.classList.toggle("completed");
-                saveTasks();
-            };
+    // Render tasks
+    function renderTasks() {
+        taskList.innerHTML = "";
+        tasks.forEach((task, index) => {
+            const li = document.createElement("li");
+            li.innerHTML = `
+                <span class="${task.completed ? 'completed' : ''}">${task.text}</span>
+                <small>${task.date}</small> 
+                <button onclick="toggleTask(${index})">✔</button>
+                <button onclick="deleteTask(${index})">❌</button>
+            `;
             taskList.appendChild(li);
         });
     }
-}
 
-function toggleDarkMode() {
-    document.body.classList.toggle("dark-mode");
+    // Toggle task completion
+    window.toggleTask = function (index) {
+        tasks[index].completed = !tasks[index].completed;
+        localStorage.setItem("tasks", JSON.stringify(tasks));
+        renderTasks();
+    };
 
-    if (document.body.classList.contains("dark-mode")) {
-        localStorage.setItem("darkMode", "enabled");
-    } else {
-        localStorage.setItem("darkMode", "disabled");
-    }
-}
-
-function loadDarkMode() {
-    const darkMode = localStorage.getItem("darkMode");
-    if (darkMode === "enabled") {
-        document.body.classList.add("dark-mode");
-    }
-}
+    // Delete task
+    window.deleteTask = function (index) {
+        tasks.splice(index, 1);
+        localStorage.setItem("tasks", JSON.stringify(tasks));
+        renderTasks();
+    };
+});
