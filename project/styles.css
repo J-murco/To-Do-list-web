@@ -83,6 +83,10 @@ li {
     color: gray;
 }
 
+.completed .complete-btn, .completed .delete-btn {
+    text-decoration: none; /* Prevents the buttons from being crossed out */
+}
+
 /* Tick and Cross Buttons */
 .complete-btn, .delete-btn {
     background: none;
