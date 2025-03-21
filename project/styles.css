@@ -57,12 +57,12 @@ body::before {
     height: 100%;
     background: url('data:image/svg+xml,\
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">\
-    <path d=\"M0,50 Q25,75 50,50 T100,50\" fill=\"none\" stroke=\"rgba(255, 100, 100, 0.4)\" stroke-width=\"5\" />\
-    <path d=\"M0,70 Q25,90 50,70 T100,70\" fill=\"none\" stroke=\"rgba(255, 100, 100, 0.4)\" stroke-width=\"5\" />\
-    <path d=\"M0,30 Q25,50 50,30 T100,30\" fill=\"none\" stroke=\"rgba(255, 100, 100, 0.4)\" stroke-width=\"5\" />\
+    <path d=\"M0,50 Q25,75 50,50 T100,50\" fill=\"none\" stroke=\"rgba(255, 150, 150, 0.7)\" stroke-width=\"5\" />\
+    <path d=\"M0,70 Q25,90 50,70 T100,70\" fill=\"none\" stroke=\"rgba(255, 150, 150, 0.7)\" stroke-width=\"5\" />\
+    <path d=\"M0,30 Q25,50 50,30 T100,30\" fill=\"none\" stroke=\"rgba(255, 150, 150, 0.7)\" stroke-width=\"5\" />\
     </svg>') repeat;
     background-size: cover;
-    opacity: 0.7; /* Make stripes more visible */
+    opacity: 0.8; /* Make stripes even more visible */
     z-index: -1;
 }
 
