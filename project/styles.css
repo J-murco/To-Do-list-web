@@ -37,3 +37,33 @@ body::before {
 .dark-mode::before {
     background: linear-gradient(to right, rgba(255, 50, 50, 0.7), rgba(255, 50, 50, 0.3));
 }
+
+/* Task List Styling */
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+    gap: 20px; /* Adds space between task text and buttons */
+}
+
+/* Button Container to Spread Buttons Apart */
+.task-buttons {
+    display: flex;
+    gap: 15px; /* Increases space between ✔ and ❌ */
+}
+
+/* Tick and Cross Buttons */
+.tick-btn, .delete-btn {
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 6px 10px;
+    border-radius: 5px;
+}
