@@ -22,11 +22,11 @@ document.addEventListener("DOMContentLoaded", function () {
         document.body.classList.toggle("dark-mode");
     });
 
-    function addTask(taskText) {
+    function addTask(taskText, completed = false) {
         const taskItem = document.createElement("li");
 
         taskItem.innerHTML = `
-            <span>${taskText}</span>
+            <span class="task-text ${completed ? 'completed' : ''}">${taskText}</span>
             <div class="task-buttons">
                 <button class="tick-btn">✔</button>
                 <button class="delete-btn">❌</button>
@@ -36,9 +36,10 @@ document.addEventListener("DOMContentLoaded", function () {
         // Add Event Listeners for Tick and Delete
         const tickBtn = taskItem.querySelector(".tick-btn");
         const deleteBtn = taskItem.querySelector(".delete-btn");
+        const taskTextSpan = taskItem.querySelector(".task-text");
 
         tickBtn.addEventListener("click", function () {
-            taskItem.classList.toggle("completed");
+            taskTextSpan.classList.toggle("completed");
             saveTasks();
         });
 
@@ -54,8 +55,8 @@ document.addEventListener("DOMContentLoaded", function () {
         const tasks = [];
         document.querySelectorAll("#taskList li").forEach(task => {
             tasks.push({
-                text: task.querySelector("span").innerText,
-                completed: task.classList.contains("completed")
+                text: task.querySelector(".task-text").innerText,
+                completed: task.querySelector(".task-text").classList.contains("completed")
             });
         });
         localStorage.setItem("tasks", JSON.stringify(tasks));
@@ -64,10 +65,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function loadTasks() {
         const storedTasks = JSON.parse(localStorage.getItem("tasks")) || [];
         storedTasks.forEach(task => {
-            addTask(task.text);
-            if (task.completed) {
-                taskList.lastChild.classList.add("completed");
-            }
+            addTask(task.text, task.completed);
         });
     }
 });
