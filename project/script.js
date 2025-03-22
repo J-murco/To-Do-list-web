@@ -1,48 +1,73 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", function () {
     const taskInput = document.getElementById("taskInput");
     const addTaskBtn = document.getElementById("addTaskBtn");
     const taskList = document.getElementById("taskList");
     const darkModeToggle = document.getElementById("darkModeToggle");
 
-    addTaskBtn.addEventListener("click", addTask);
-    darkModeToggle.addEventListener("click", toggleDarkMode);
-    
-    function addTask() {
+    // Load tasks from local storage
+    loadTasks();
+
+    // Add Task
+    addTaskBtn.addEventListener("click", function () {
         const taskText = taskInput.value.trim();
-        if (taskText === "") return;
+        if (taskText !== "") {
+            addTask(taskText);
+            taskInput.value = "";
+            saveTasks();
+        }
+    });
 
-        const urgencySelect = document.getElementById("urgencySelect");
-        const urgencyLevel = urgencySelect.value;
+    // Toggle Dark Mode
+    darkModeToggle.addEventListener("click", function () {
+        document.body.classList.toggle("dark-mode");
+    });
 
+    function addTask(taskText) {
         const taskItem = document.createElement("li");
-        taskItem.classList.add(urgencyLevel);
 
-        const taskContent = document.createElement("span");
-        taskContent.textContent = taskText;
+        taskItem.innerHTML = `
+            <span>${taskText}</span>
+            <div class="task-buttons">
+                <button class="tick-btn">✔</button>
+                <button class="delete-btn">❌</button>
+            </div>
+        `;
 
-        const completeBtn = document.createElement("button");
-        completeBtn.innerHTML = "✔";
-        completeBtn.classList.add("complete-btn");
-        completeBtn.addEventListener("click", () => {
-            taskContent.classList.toggle("completed");
+        // Add Event Listeners for Tick and Delete
+        const tickBtn = taskItem.querySelector(".tick-btn");
+        const deleteBtn = taskItem.querySelector(".delete-btn");
+
+        tickBtn.addEventListener("click", function () {
+            taskItem.classList.toggle("completed");
+            saveTasks();
         });
 
-        const deleteBtn = document.createElement("button");
-        deleteBtn.innerHTML = "✖";
-        deleteBtn.classList.add("delete-btn");
-        deleteBtn.addEventListener("click", () => {
+        deleteBtn.addEventListener("click", function () {
             taskItem.remove();
+            saveTasks();
         });
 
-        taskItem.appendChild(taskContent);
-        taskItem.appendChild(completeBtn);
-        taskItem.appendChild(deleteBtn);
         taskList.appendChild(taskItem);
-
-        taskInput.value = "";
     }
 
-    function toggleDarkMode() {
-        document.body.classList.toggle("dark-mode");
+    function saveTasks() {
+        const tasks = [];
+        document.querySelectorAll("#taskList li").forEach(task => {
+            tasks.push({
+                text: task.querySelector("span").innerText,
+                completed: task.classList.contains("completed")
+            });
+        });
+        localStorage.setItem("tasks", JSON.stringify(tasks));
+    }
+
+    function loadTasks() {
+        const storedTasks = JSON.parse(localStorage.getItem("tasks")) || [];
+        storedTasks.forEach(task => {
+            addTask(task.text);
+            if (task.completed) {
+                taskList.lastChild.classList.add("completed");
+            }
+        });
     }
 });
